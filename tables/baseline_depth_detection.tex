@@ -1,0 +1,45 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.5em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{Depth metrics} & \multicolumn{3}{c}{3D AP} \\ 
+\multirow{-2}{*}{Depth net} & 
+Abs Rel$\downarrow$ &
+Sq Rel$\downarrow$ &
+RMSE$\downarrow$&
+Easy$\uparrow$ & Med$\uparrow$ & Hard$\uparrow$ \vspace{0.5mm}\\
+\midrule
+PackNet~\cite{guizilini20203d}  & 
+0.112 & 
+0.761 &  
+4.756 &  
+18.50 &  
+12.68 &  
+10.78 \\
+% BTS~\cite{lee2019big} & 
+% 0.116 & 
+% 0.935 &  
+% 0.210 &  
+% 0.842 &  
+% 0.945 &  
+% \textbf{0.977}\\
+PSMNet~\cite{chang2018pyramid} & 
+0.043 & 
+0.390 &  
+2.861 &  
+64.83 &  
+42.74 &  
+34.75\\
+
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{
+\textbf{3D detection performance on the KITTI3D dataset~\cite{geiger2012we} with different depth inputs.} Packnet~\cite{guizilini20203d} computes depth from monocular images, while PSMNet~\cite{chang2018pyramid} computes depth from stereo. The depth metrics are computed against Velodyne lidar scans on the KITTI3D validation set. The 3D detection numbers are computed using the $AP|_{40}$ metric on the \textit{Car} category of the KITTI3D validation set.}
+\label{table:baseline_depth_detection}
+}
+\end{table}

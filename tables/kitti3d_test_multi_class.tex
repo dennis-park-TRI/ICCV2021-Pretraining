@@ -1,0 +1,72 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{Pedestrian} & \multicolumn{3}{c}{Cyclist} \\ 
+\multirow{-2}{*}{Methods}& 
+Easy & 
+Med &
+Hard &
+Easy & Med & Hard \vspace{0.5mm}\\
+\midrule
+OFTNet~\cite{} &
+1.28 &
+0.81 &
+0.51 &
+0.36 &
+0.16 &
+0.15 
+\\
+SS3D~\cite{} &
+2.48 &
+2.09 &
+1.61 &
+3.45 &
+1.89 &
+1.44 
+\\
+M3D-RPN~\cite{} &
+5.65 &
+4.05 &
+3.29 &
+1.25 &
+0.81 &
+0.78 
+\\
+MonoPSR~\cite{} &
+7.24 &
+4.56 &
+4.11 &
+\textbf{9.87} &
+\textbf{5.78} &
+\textbf{4.57} 
+\\
+MonoDIS (multi)~\cite{simonelli2020disentangling} & 
+9.07 & 
+5.81 &
+5.09 &
+1.47 &
+0.85 &
+0.61
+\\
+\midrule
+FCOS-3D & 
+\textbf{15.86} & 
+\textbf{10.49} &
+\textbf{9.06} &
+5.00 &
+3.06 &
+2.56
+\\
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{
+Multiclass 3D detection on KITTI3D test set. We report BEV AP$|_{R_{40}}$ metrics for "Pedestrian" and "Cyclist" category. FCOS-3D outperforms most of other approaches, with \textbf{80.5\%} improvement from the previous best method on "Pedestrian".}
+\label{table:kitti_3d_test_multi_class}
+}
+\end{table}

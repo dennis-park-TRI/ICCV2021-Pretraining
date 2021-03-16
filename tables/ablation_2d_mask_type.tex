@@ -1,0 +1,51 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{BEV AP} & \multicolumn{3}{c}{3D AP} \\ 
+\multirow{-2}{*}{Depth net}& 
+Easy & 
+Med &
+Hard &
+Easy & Med & Hard \vspace{0.5mm}\\
+\midrule
+PackNet & 
+41.59 & 
+27.75 &
+23.69 &
+30.91 &
+20.53 &
+17.25
+\\
+PackNet + 2D masks  & 
+40.46 & 
+27.64 & 
+23.03 &
+32.39 &
+21.29 & 
+17.97 
+\\
+
+PackNet + Gauss. masks &
+43.46 &
+29.96 &
+25.07 &
+34.01 &
+22.31 &
+18.58 
+\\
+
+
+
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{
+\textbf{Ablative analysis of 3D detection performance with different depth fine-tuning strategies.}}
+\label{table:baseline_depth_detection}
+}
+\end{table}

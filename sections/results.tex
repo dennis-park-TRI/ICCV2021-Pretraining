@@ -1,0 +1,78 @@
+We present detailed analysis on our pretraining and finetuning strategy, as well as benchmark results of our two proposed detectors on three 3D detection benchmarks.
+
+
+
+
+\begin{figure}[h]
+    \includegraphics[width=0.99\columnwidth,trim={0mm 0mm 0mm 0mm},clip]{figures/scaling_law.pdf}
+    \caption{Accuracy of 3D detection continues to improve, at least up to 1.89M images used for pre-training. We pre-train FCOS-3D with growing sizes of image-pointcloud pairs until convergence. The models are then fine-tuned on for 3D detection on KITTI \emph{train}, and evaluated on KITTI \emph{val}.}
+    \label{fig:pretraining_vs_depth}
+\end{figure}
+
+\input{tables/dla_34}
+\input{tables/v2_99}
+
+\subsection{3D detection}
+\label{subsec:3d_detection}
+
+\noindent\textbf{KITTI3D} Our numbers on the \textit{validation split} of the KITTI3D dataset are summarized in Table~\ref{table:kitti_3d_val} for the BEV and 3D detection tasks. We note that our baseline numbers are on par with related methods, and we record a significant increase in performance when using the modifications proposed in this paper. Our baseline FCOS-3D model uses COCO~\cite{lin2014microsoft} pretraining and we record an increase of $22\%$ by using depth estimation as an auxiliary task for pretraining ($17.03$ vs $13.96$). Our PL numbers improve over the current state-of-the-art on this split by $58\%$ and over our baseline by $75\%$ ($22.31$ vs $14.10$ and $12.68$ respectively). Note that we are omitting from this comparison the results reported by methods that use depth trained on images that overlap with the KITTI3D train and val splits. 
+
+% , as discussed in detail in Sec.~\ref{subsec:eigen_clean}, e.g.~\cite{weng2019monocular,ma2019accurate,ding2020learning}.
+
+Our numbers on the \textit{test split} of the KITTI3D dataset are reported in Table~\ref{table:kitti_3d_test}. Our novel single-stage 3D detector (\textit{FCOS-3D}) outperforms all other single and two-stage detectors, with a notable improvement of $21\%$ over the previous best published results for the Car - Easy category (i.e. in 3DAP $20.09$ vs. $15.54$); our improvements are significantly more noticeable on smaller classes (i.e. cyclists and pedestrians), as reported in the supplementary. Our PL-based detector also outperforms the previous state-of-the-art in this category by a significant margin - for Car - medium our 3DAP is $11\%$ higher (i.e. $13.05$ vs $11.72$). We ablate the various components of our method in Sec.~\ref{subsec:ablative_analysis}.
+
+\input{tables/kitti3d_val}
+
+\input{tables/kitti3d_test}
+\input{tables/kitti3d_test_multi_class}
+
+\subsection{Depth estimation}
+\label{subsec:depth_estimation}
+
+\input{tables/kitti_depth}
+
+\noindent{\textbf{KITTI.}} To better quantify the performance of our depth estimation component as well as place is within context, we perform experiments on the standard monocular depth estimation benchmark using the KITTI dataset. We report results with both the PackNet and BTS network architectures: we first pre-train on the $25K$ image split, and subsequently fine-tune on the Eigen train split; we report results on the Eigen test split. The exact training protocol is described in detail in the supplementary. Our results are summarized in Table~\ref{table:depth_kitti}. We compare against the current state-of-the-art and note that while other methods use ImageNet pretraining, our depth pretraining significantly improves performance by up to $30\%$ for some metrics ($0.166$ vs $0.245$ \textit{Sqr.Rel}). Our numbers indicate the our monocular depth results outperform all other published methods to date by a large margin. 
+
+\subsection{A critical analysis of depth estimation metrics}
+\label{subsec:depth_metrics}
+
+\subsection{The impact of data on depth and 3D detection}
+\label{subsec:depth_pretraining}
+
+\begin{figure*}[t!]
+% \vspace{-1mm}
+\centering
+
+\subfloat{
+\includegraphics[width=0.3\linewidth]{figures/scaling_laws/PacknetFT_depth_metrics_k3d_val_abs_rel.png}
+\includegraphics[width=0.3\linewidth]{figures/scaling_laws/Packnet_3d_det.png}
+\includegraphics[width=0.3\linewidth]{figures/scaling_laws/depth_vs_3d_det_AP_3d_metrics_Mod.png}
+}
+\caption{
+\textbf{Depth quality vs 3D AP for varying dataset sizes.} \textbf{Left:} we report the proposed \textit{abs\_rel} per-object depth metric on the KITTI3D validation split; the depth network is pretrained with varying dataset sizes and fine-tuned on the KITTI Eigen-clean split. \textbf{Middle:} for each depth network, a PL 3D detector is trained on KITTI 3D train and evaluated on KITTI 3D val. \textbf{Right:} we plot the proposed abs\_rel metric vs the resulting 3D AP metric; note that both are computed on the KITTI 3D validation split.
+}
+\label{fig:scaling_laws_packnet}
+\end{figure*}
+
+% -------------------------------------------------
+% \begin{figure}[h]
+%     \includegraphics[width=0.99\columnwidth,trim={0mm 0mm 0mm 0mm},clip]{figures/depth_ft_transfer.png}
+%     \caption{\textbf{Depth metrics on the KITTI3D validation set}: we report results for the $abs\_rel$ metric for the PackNet and BTS architectures after pre-training on varying dataset sizes. \textbf{PT} denotes pure transfer after pretraining, while \textbf{PT + FT} denotes pretraining and fine-tuning on the KITTI Eigen clean split.}
+%     \label{fig:pretraining_vs_depth}
+% \end{figure}
+
+% \begin{figure}[h]
+%     \includegraphics[width=0.99\columnwidth,trim={0mm 0mm 0mm 0mm},clip]{figures/pretraining_3d_det.png}
+%     \caption{\textbf{Moderate Car 3D AP results on the KITTI validation set for the PL and FCOS3D detectors.} The depth networks are pretrained on varying dataset sizes and fine-tuned on the KITTI Eigen clean split.}
+%     \label{fig:pretraining_vs_3D_det}
+% \end{figure}
+
+\subsection{Ablative analysis}
+\label{subsec:ablative_analysis}
+
+\input{tables/ablation_2d_mask_type}
+
+
+
+
+

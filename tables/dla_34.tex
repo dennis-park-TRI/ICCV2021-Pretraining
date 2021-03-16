@@ -1,0 +1,78 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{BEV AP} & \multicolumn{3}{c}{3D AP} \\ 
+\multirow{-2}{*}{Pre-train task}& 
+Car & 
+Pedestrian &
+Cyclist &
+Car & Pedestrian & Cyclist \vspace{0.5mm}\\
+\midrule
+%  DLA-34, Det2D & 
+% 16.84 & 
+% 7.01 &
+% 2.88 &
+% 11.20 &
+% 5.64 &
+% 2.40
+% \\
+2D-det (coco)  & 
+% 16.84 & 
+% 7.01 &
+% 2.88 &
+% 11.20 &
+% 5.64 &
+% 2.40
+20.24 & 
+7.82 &
+3.77 &
+13.94 &
+6.01 &
+3.13
+\\
+\midrule
+% DLA-34, Depth & 
+% 21.70 & 
+% 9.29 &
+% 3.30 &
+% 15 .06 &
+% 7.33 &
+% 2.75
+% \\
++ 2D-det (nusc) & 
+x.xx & 
+x.xx &
+x.xx &
+x.xx &
+x.xx &
+x.xx
+\\
++ Depth  (nusc) & 
+x.xx & 
+x.xx &
+x.xx &
+x.xx &
+x.xx &
+x.xx
+\\
+\midrule
++ Depth (internal) & 
+\textbf{25.82} & 
+\textbf{9.93} &
+\textbf{4.36} &
+\textbf{18.20} &
+\textbf{7.64} &
+\textbf{3.75}
+\\
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{We aim to ablate the role of pre-training on depth estimation via controlled experiments. We use FCOS-3D to pre-train subset of parameters relevant to each pre-train task, and fine-tine on KITTI \emph{train} for 3D detection. \textbf{2D-det} denotes 2D bounding box detection as pre-training task; \textbf{Depth} denotes supervised depth prediction using ground-truth depth available from Lidar point-cloud. Starting from parameters pre-trained on MS-COCO dataset (2D detection), we perform additional pre-training in target domain (i.e. autonomous driving) on either 2D detection or depth estimation, using the \emph{same} set of images (\textbf{nusc}) until convergence. To understand how the accuracy scales with respect to the size of pre-train data, we internally collect a large set of image-Lidar pairs (\textbf{internal}) and use it for depth pre-training. The fine-tuned models are evaluated on KITTI \emph{val}. We only report "Moderate" metrics. Depth pretraining significantly improves 3D detection accuracy, up to \textbf{30.6\%} from the baseline pre-training method.}
+\label{table:dla-34}
+}
+\end{table}

@@ -1,0 +1,91 @@
+\subsection{Pseudo-Lidar 3D detection}
+\label{subsec:pseudo-lidar}
+PL methods consist of two stages: first, leveraging dense depth estimators, a point cloud is computed given an input RGB image; second, a 3D detector consumes the generated point cloud, outputting detections. The modularity of the PL pipeline implies that any depth estimation method can easily be combined with any detector that consumed point cloud data as input. Moreover, this paradigm allows easy introspection of both components, permitting us to quantify how changes in one affects performance in the other. 
+
+\subsubsection{Monocular depth estimation}
+\label{subsubsec:monodepth}
+
+The aim of monocular depth estimation is the recovery of a function $f_D: I \to D$ that predicts for each pixel $p \in I$ the estimated depth $\hat{D} = f_D\left( I\left(p\right)\right)$. Given ground truth depth measurement $D$ (typically acquired by an external sensor, e.g. a LiDAR or RGB-D camera), we define a loss aimed at minimizing the error between the predicted and the actually depth. Formally, our depth estimation model $f_D$ and parameterized by $\theta_D$ is defined as $\hat{\theta}_D = \argmin_{\theta_D}\mathcal{L}_{D}\left(D,\hat{D}\right)$. In all our experiments we 
+
+% \begin{equation} \label{eq:supervised_depth}
+% 
+% \end{equation}
+
+
+We supervise our predictions using the scale invariant error proposed by~\cite{eigen2014depth}:  
+
+\begin{equation} \label{eq:silog_loss}
+\small
+\mathcal{L_D}(D, \hat{D}) =
+\frac{1}{N} \sum_{d \in D} e ^2 - \frac{\lambda}{N^2} \left(\sum_{d \in D} e \right)^2
+\end{equation}
+
+\noindent where $e$ denotes the error in log space between the predicted and actual depth, $e = \log \hat{d} - \log d$. We follow~\cite{lee2019big} and set $\lambda=0.85$ in all our experiments. We experiment with the PackNet~\cite{guizilini20203d} state-of-the-art network architectures: (i) which uses packing and unpacking blocks with 3D convolutions, allowing it to recover fine structures with high precision; and (ii) BTS~\cite{lee2019big} which leverages local planar guidance layers at different levels allowing better correlation between encoded features and desired output depth  for all our experiments we use the \textit{densenet161} backbone.
+
+% Formally, our depth estimation model $f_D$ and parameterized by $\theta_D$ is defined as: 
+
+% \begin{equation} \label{eq:supervised_depth}
+% \hat{\theta}_D = \argmin_{\theta_D}\mathcal{L}_{D}\left(D,\hat{D}\right)
+% \end{equation}
+
+% \noindent{\textbf{Loss function.}} We supervise our predictions using the scale invariant error proposed by~\cite{eigen2014depth}:  
+
+% follow~\cite{eigen2014depth} and supervise our predictions using the scale-invariant loss 
+
+% through the Scale Invariant Logarithmic Loss function (SILog) defined as:
+
+% error in log space $\Delta d = \log d - \log \hat{d}$:
+% \begin{equation} \label{eq:silog_loss}
+% \small
+% \mathcal{L_D}(D, \hat{D}) =
+% \frac{1}{N} \sum_{d \in D} e ^2 - \frac{\lambda}{N^2} \left(\sum_{d \in D} e \right)^2
+% \end{equation}
+
+% \noindent where $e$ denotes the error in log space between the predicted and actual depth, $e = \log \hat{d} - \log d$. We follow~\cite{lee2019big} and set $\lambda=0.85$ in all our experiments.
+
+% \noindent{\textbf{Network architecture.}} We experiment with two state-of-the-art network architectures: (i) PackNet~\cite{guizilini20203d} which uses packing and unpacking blocks with 3D convolutions, allowing it to recover fine structures with high precision; and (ii) BTS~\cite{lee2019big} which leverages local planar guidance layers at different levels allowing better correlation between encoded features and desired output depth  for all our experiments we use the \textit{densenet161} backbone.
+
+% this is particularly relevant for PL methods~\cite{ma2020rethinking,simonelli2020demystifying,qi2018frustum} that leverage an off-the-shelf 2D detector, and perform 3D detection only on image patches where objects have been detected. 
+
+% \noindent{\textbf{Guided training.}} Supervised training of depth estimation network applies the same amount of weight to all supervision points. However, we primarily interested in recovering depth on objects, with depth on other surfaces being less relevant. We follow standard PL~\cite{ma2020rethinking,simonelli2020demystifying,qi2018frustum} practices and assume the availability of an off-the-shelf 2D detector, which we use to detector regions of interest (i.e. objects) in the images. Inspired by keypoint regression methods, we define a mask around object centers, denoted by $\mathcal{M}_{obj}$. We use a Gaussian kernel to associate a weight with each pixel depending on its distance from the object center (see Fig.~\ref{fig:object_masks}). 
+
+% \begin{figure}[h!]
+% \includegraphics[width=\columnwidth]{figures/object_masks.png}
+% \caption{\textbf{Proposed guiding masks for supervised monocular depth training.}}
+% \label{fig:object_masks}
+% \end{figure}
+
+% We leverage the object masks while training the depth estimation network, and adjust our supervision loss to:
+
+% \begin{equation} \label{eq:masked_silog_loss}
+% \small
+% \mathcal{L_{MD}}(D, \hat{D}) = \mathcal{L_D}(D, \hat{D}) \circ \mathcal{M}_{obj}
+% \end{equation}
+
+% \noindent where $\circ$ to denotes element-wise multiplication. We show in our experiments that the proposed depth guided training scheme improves depth in crucial image regions, leading to improved 3D object detection. 
+
+% \noindent{\textbf{Dataset bias.}} PL methods leverage monocular 3D detectors trained in the same domain. Overlaps in training / validation splits between the two tasks may lead to corrupted results. In the case of the KITTI~\cite{geiger2012we} dataset, the \textit{Eigen train/val} splits proposed in~\cite{eigen2014depth} and commonly used for supervised depth  training~\cite{packnet-semisup,lee2019big,fu2018deep}, overlap with the training and validation set of the KITTI 3D dataset, as described in~\cite{simonelli2020demystifying}. Following~\cite{simonelli2020demystifying}, we remove all overlapping images and generate a new split which we refer to as \textit{Eigen clean}. This procedure is described in more detail in Sec.~\ref{sec:experiments} as well as the supplementary; we will make the new split public to facilitate the generation of unbiased results. We mention that \textit{the depth used by our PL 3D detectors is always trained on Eigen clean, and not on Eigen train}, to avoid any contamination. 
+
+
+
+\subsubsection{3D detection}
+\label{subsubsec:pl_3d_det}
+
+Our Pseudo-Lidar monocular 3D detector follows the method proposed by~\cite{qi2018frustum,ma2020rethinking}. Given an input image $I$, we predict dense per pixel depth which is converted to a point cloud using the camera intrinsics $K$. For each image pixel $p \in I$ and predicted depth $\hat{d}$, we compute associated 3D point $P$ through: $P=K^{-1}\left[p_x, p_y, \hat{d}\right]$. The point cloud is concatenated with the input image, resulting in a 6D tensor encompassing pixel color values along with 3D coordinates. Leveraging an off-the-shelf 2D detector, proposal regions are identified in images and are fed to a 3D detection network that outputs bounding box parameters. 
+
+\noindent{\textbf{Backbone, detection head and 3D confidence.}}
+We follow~\cite{ma2020rethinking}, and process each RoI with a ResNet-18~\cite{he2016deep} backbone that uses Squeeze-and-Excitation layers~\cite{hu2018squeeze}. As the RoI contains both object as well as background pixels, the resulting features are filtered via a foreground/background mask computed based on the associated RoI depth map~\cite{ma2019accurate}. The detection head follows~\cite{ma2020rethinking} and operates in 3 distance ranges, outputting one bounding box for each range; the final output is then selected based on the mean depth of the input RoI. Following~\cite{simonelli2019disentangling,simonelli2020demystifying}, we modify the detection head and also output a 3D confidence value $\gamma$ per detection, which is linked to the 3D detection loss (the architectural details are described in the supplementary).
+
+\noindent{\textbf{Loss function.}} Following~\cite{qi2018frustum} the 3D regression loss is defined as:
+
+\begin{equation} \label{eq:3D_bbox_loss}
+\small
+\mathcal{L}_{3D} = \mathcal{L}_{center} +  \mathcal{L}_{size} +  \mathcal{L}_{heading} +  \mathcal{L}_{corners}
+\end{equation}
+
+We define an additional loss that links the predicted 3D confidence $\gamma$ with the 3D box coordinates loss~\cite{simonelli2019disentangling} using a Binary Cross Entropy (BCE) formulation with target $\hat{\gamma}=e^{-\mathcal{L}_{corners}}$. The final PL 3D detection loss is:
+
+\begin{equation} \label{eq:3D_bbox_loss}
+\small
+\mathcal{L}_{PL} = \mathcal{L}_{3D} +  \mathcal{L}_{conf}
+\end{equation}

@@ -1,0 +1,68 @@
+
+\begin{table}[t!]
+\renewcommand{\arraystretch}{1.00}
+\centering
+{
+\small
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|cccc}
+\toprule
+% \multirow{2}{*}{\textbf{Method}} &
+% \multicolumn{3}{|c|}{Lower is better $\downarrow$} &
+% \multicolumn{3}{|c}{Higher is better $\uparrow$} \\
+Method & 
+Abs.Rel$\downarrow$ &
+Sqr.Rel$\downarrow$ &
+RMSE$\downarrow$ &
+$\delta_{1.25}\uparrow$ 
+% a2 &
+% a3
+\\
+\toprule
+
+Kuznietsov et al. \cite{kuznietsov2017semi}
+% & 0.113 & 0.741 & 4.621 & 0.862 & 0.960 & 0.986
+& 0.113 & 0.741 & 4.621 & 0.862 
+\\
+Gan et al. \cite{Gan2018MonocularDE}
+% & 0.098 & 0.666 & 3.933 & 0.890 & 0.964 & 0.985
+& 0.098 & 0.666 & 3.933 & 0.890
+\\
+Guizilini et al. ~\cite{packnet-semisup}
+% & 0.078 & 0.378 & 3.330 & 0.927 & --- & ---
+& 0.078 & 0.378 & 3.330 & 0.927 
+\\
+Fu et al. \cite{fu2018deep}
+% & 0.072 & 0.307 & 2.727 & 0.932 & 0.984 & 0.994
+& 0.072 & 0.307 & 2.727 & 0.932
+\\
+Yin et al. \cite{Yin2019enforcing}
+% & 0.072 & --- & 3.258 & 0.938 & 0.990 & 0.998
+& 0.072 & --- & 3.258 & 0.938 
+\\
+Lee et al. ~\cite{lee2019big} 
+% & 0.059 & 0.245 & 2.756 & 0.956 & 0.993 & 0.998
+& 0.059 & 0.245 & 2.756 & 0.956
+\\
+
+\midrule
+
+Ours PackNet 
+% & 0.053 & 0.179 & 2.301 & 0.968 & 0.996 & 0.999
+& 0.053 & 0.179 & 2.301 & 0.968
+\\
+Ours BTS
+% & 0.051 & 0.166 & 2.234 & 0.972 & 0.996 & 0.999
+& 0.051 & 0.166 & 2.234 & 0.972
+\\
+
+\bottomrule
+
+\end{tabular}
+}
+\caption{\textbf{Depth estimation results on the KITTI dataset}, for the \textit{Eigen} test split \cite{eigen2014depth} and distances up to 80m.} 
+\label{table:depth_kitti}
+
+\end{table}
+

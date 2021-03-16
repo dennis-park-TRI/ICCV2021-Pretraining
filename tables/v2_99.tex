@@ -1,0 +1,71 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{c|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{BEV AP} & \multicolumn{3}{c}{3D AP} \\ 
+\multirow{-2}{*}{Pre-train task}& 
+Car & 
+Pedestrian &
+Cyclist &
+Car & Pedestrian & Cyclist \vspace{0.5mm}\\
+\midrule
+%  DLA-34, Det2D & 
+% 16.84 & 
+% 7.01 &
+% 2.88 &
+% 11.20 &
+% 5.64 &
+% 2.40
+% \\
+2D Det. (coco)  & 
+8.40 & 
+2.49 &
+0.09 &
+4.58 &
+1.70 &
+0.03
+\\
+% \midrule
+% DLA-34, Depth & 
+% 21.70 & 
+% 9.29 &
+% 3.30 &
+% 15 .06 &
+% 7.33 &
+% 2.75
+% \\
+% 2D Det. (coco + nuim) & 
+%x.xx & 
+%x.xx &
+%x.xx &
+%x.xx &
+%x.xx &
+%x.xx
+%\\
+%Depth & 
+%x.xx & 
+%x.xx &
+%x.xx &
+%x.xx &
+%x.xx &
+%x.xx
+%\\
+  + Depth & 
+\textbf{24.27} & 
+\textbf{9.59} &
+\textbf{3.34} &
+\textbf{17.34} &
+\textbf{8.17} &
+\textbf{2.65}
+\\
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{Pre-training on supervised depth estimation allows for training larger backbone of FCOS-3D. We pre-train V2-99 \cite{lee2019centermask} backbone (96.9M parameters) using 2D detection on MS-COCO dataset, and perform additional pre-training using depth prediction on our internal dataset of image-pointcloud pairs. The models are then fine-tuned on KITTI \emph{train} for 3D detection, and evaluated on KITTI \emph{val}. The depth pre-training significantly improve rare classes: 4$\times$ for "Pedestrian", 37$\times$ for "Cyclist". We run each fine-tuning experiment four times, and report the average. We only report "Moderate" metrics due to limited space.}
+\label{table:v2-99}
+}
+\end{table}

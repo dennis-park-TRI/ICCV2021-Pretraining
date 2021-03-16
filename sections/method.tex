@@ -1,0 +1,11 @@
+% \input{tables/baseline_depth_detection}
+
+
+The goal of 3D object detection from monocular images is the recovery of a function $f_{3D}: I \to \mathbb{R}^{K\times8}$ that identifies $K$ objects in 3D space, parameterized by their 3D position, 3D shape, class and confidence $\left(x,y,z,w,l,h,c,\gamma\right)$. Accurately regressing object position is by far the most challenging task~\cite{manhardt2019roi,simonelli2020demystifying}.  Intuitively, monocular depth estimation and monocular object detection are linked; in this work we dive deeper and establish a clear correlation between the two. We thoroughly test our hypothesis following two leading 3D detection paradigms: (i) \textit{Pseudo-Lidar} (PL) methods~\cite{you2019pseudo,vianney2019refinedmpl,qian2020end,ma2020rethinking}, where depth estimation is an intermediate task with the resulting point cloud being consumed as input by a 3D detector; and (ii) single stage methods~\cite{tian2019fcos,liu2020smoke} that directly regress object properties for each pixel, where we propose a novel \textit{Fully Convolutional} architecture (FCOS-3D)  that combines dense depth estimation and dense object detection.
+
+
+
+\input{sections/method_fcos}
+
+
+\input{sections/method_pl}

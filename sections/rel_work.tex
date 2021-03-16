@@ -1,0 +1,72 @@
+% \todo{DP}{We should highlight how the PL methods were demystified somewhere in this section. And say we're not comparing with PL methods using DORN pre-trained on eigen subset of KITTI.}
+% @Dennis -- I think we can leave that out, since PL isn't the main focus anymore. 
+Current monocular 3D object detection algorithms can be categorized based on whether depth maps are inferred as an intermediate step or representation: RGB-only detectors and Depth-based detectors.
+We review 
+\\
+\noindent\textbf{RGB-only 3D detectors.}
+As one of the early methods, Mono3D~\cite{chen2016monocular}, provides promising results on this direction using different semantic and shape cues to score a set of over-sampled 3D proposals. While only RGB image is required at test time, different prior information with scene constraints are needed during training.
+Later RGB-only 3D detectors are normally built on top of a 2D object detector and further extract 3D object information exploiting 3D geometry and 3D-2D consistency. 
+\cite{mousavian20173d} explores the representations for direct 3D bounding box regression as well as losses to imply bounding box level 3D-2D projection error.
+SSD-6D~\cite{kehl2017ssd} replaces part of the regression task with classification task and exploit contour consistency between 3D and 2D projection trained on CAD models. 
+% Moving beyond 2D project losses, RoI-10D~\cite{manhardt2019roi} proposes to lift 2D proposals into 3D through a differentiable listing process and directly regress 3D boxes with respect to 3D ground truth.
+M3D-RPN~\cite{brazil2019m3d} jointly generates 3D and 2D proposals with shared anchors yielding improved 3D detection results.
+With the increased complexity in parameterization and losses of these works, MonoDIS~\cite{simonelli2019disentangling} and Kinematic 3D~\cite{brazil2020kinematic} looks into simplifies the training dynamic and balances the regressions through loss decomposing and uncertainty estimation. 
+%
+More recent works also explore even more fine-grain regression of 3D objects embracing the recent advances in techniques like differentiable rendering~\cite{beker2020monocular} or 3D key-point detection~\cite{liu2020smoke, barabanau2019monocular}.
+
+\noindent\textbf{Depth-based 3D detectors.}
+\jie{Not sure if we should mentioned stereo-based method here as they are not monocular detectors.}
+The other category of works generate depth maps from RGB images as a intermediate task. 
+The generated depth can be used as an additional modality or dimension to provide additional constraints~\cite{manhardt2019roi,xu2018multi}.
+ROI-10D~\cite{manhardt2019roi} employ additional loss on 3D bounding boxes position on depth predicted from ~\cite{pillai2019superdepth}.
+Xu et al.~\cite{xu2018multi} adapt depth maps as additional feature layers at multiple stage of a detection network.
+%
+Another intuitive usage of the generated depth maps is converting RGB images into 3D point clouds (Pseudo-Lidar)~\cite{weng2019monocular, qian2020end, wang2020train,ma2019accurate}. The converted pointclouds can be used in different Lidar-based 3D object detections~\cite{wang2020train, qian2020end}. 
+\cite{wang2020train} combines 2D object bounding boxes and depth map to build point frustum for each proposal which is then fed into a Lidar-based detector.
+\cite{qian2020end} proposed to join the depth network and detector network jointly through a novel change of representation (COR) layer for information propagation.
+PatchNet~\cite{ma2020rethinking} challenges the  Pseudo-Lidar representation as a optimal way use depth in 3D detection, yet a high quality depth map remains to be a key component in the algorithm.
+
+% talk about potential over-fitting issues embedded in these methods.
+The Pseudo-Lidar or Depth-map based method presents promising results that indicate the important role of depth estimation in 3D object detection.
+However, fewer works have been done looking into the correlation between the quality and property of the depth network and the resulting 3D object detection.
+Recently, Simonelli et al.~\cite{simonelli2020demystifying} express concerns over over-fitting and information-leak problem in these depth-based detectors considering the additional data used in the depth models. 
+In this work, we take a closer look at how we can improve the quality of depth network for 3D object detection without information leak. 
+\todo{yet to include the followings.}
+ ~\cite{wang2020train}, ~\cite{you2019pseudo} ~\cite{chen2020monopair}, ~\cite{vianney2019refinedmpl}, ~\cite{cai2020monocular},  ~\cite{philion2020lift}, ~\cite{hahner2020quantifying},  ~\cite{qi2018frustum}
+ 
+ \noindent\textbf{Monocular Depth Estimation.} Although estimation depth from a single image is inherently an ill-posed problem, the seminal work of Eigen et al.~\cite{eigen2014depth} has shown that it is possible to train a neural network to learn appearance-based features capable of outputting a dense depth map, containing per-pixel distance estimates. Since them, a substantial amount of work has been done to improve the accuracy and performance of supervised monocular depth estimation, including the use of Conditional Random Fields (CRFs)~\cite{depthcrf}, different loss functions~\cite{huberloss,packnet-semisup}, joint multi-task optimization~\cite{normalscvpr2,selfsupsem,packnet-semguided}, representation in different domains~\cite{fouriercvpr}, formulating depth estimation as an ordinal classification problem~\cite{dorncvpr} and the use of local planar guidance layers during the upsampling stage~\cite{lee2019big}. At the same time, self-supervision has emerged as a way to train models without ground-truth information at training time. Instead, geometric priors to constrain learning in such a way that depth emerges as a proxy task for the projection of information between two images, either spatially (stereo, obtained from two or more cameras)~\cite{pillai2018superdepth, zhou2018stereo, ummenhofer2017demon} or temporally (monocular, obtained from the same camera in different time-steps)~\cite{packnet,godard2018digging2,vijayanarasimhan2017sfm}. 
+
+
+%%%%%%%%%%META NOTES
+% qi2018frustum
+
+% vianney2019refinedmpl
+
+% weng2019monocular: Monocular 3D Object Detection with Pseudo-LiDAR Point Cloud
+% 2D proposal + Pseudo-lidar  --> point frustum --> 3D segmentation / regression , multi stage, 3D-2D consistency loss
+
+%qian2020end: End-to-End Pseudo-LiDAR for Image-Based 3D Object Detection
+% Jointly train depth network and a Psudo Lidar 3D det network, COR; change of represenation layer
+
+%wang2020train: Train in Germany, Test in The USA: Making 3D Object Detectors Generalize
+% first domain adaptation analysis in 3D Det.
+% Solutions: Fewshot finetuning / statistic normalization. 
+
+% you2019pseudo: PseudoLidar ++
+% Improved stereo based depth network: disparity volumn --> depth volumn (SDN)
+% further improve using 4-beam lidar through depth-propagetion inspired by graph-based manifold learning.
+
+%% 
+% chen2020monopair: Monocular  3d  object  detection  using  pairwisespatial relationships
+% encode spatial constraints for partially-occluded objects from their adjacent neighbors. uncertainty aware predictions for object locations and 3D distances forthe adjacent object.pairs,
+
+
+
+% cai2020monocular
+
+% ma2020rethinking
+%philion2020lift
+% hahner2020quantifying
+
+%simonelli2020demystifying
+

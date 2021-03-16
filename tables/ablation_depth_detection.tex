@@ -1,0 +1,236 @@
+
+\begin{table*}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+% \rowcolors{2}{lightgray}{white}
+\begin{tabular}{llll|cccccc|cccccc}
+\toprule
+\multirow{4}{*}{\rotatebox[origin=c]{90}{\textbf{Pretrained}}} &
+\multirow{4}{*}{\rotatebox[origin=c]{90}{\textbf{Gauss FT}}} &  
+\multirow{4}{*}{\textbf{Depth net}} & 
+\multirow{4}{*}{\textbf{3D detector}} &
+\multicolumn{6}{c}{Depth} &
+\multicolumn{6}{c}{3D Detection}\vspace{0.5mm}\\
+& 
+&
+&
+&
+\multicolumn{3}{c}{KITTI3D Train} & 
+\multicolumn{3}{c}{KITTI3D Val} & 
+\multicolumn{3}{c}{BEV AP} &
+\multicolumn{3}{c}{3D AP}\\ 
+&
+&
+& 
+&
+\multirow{2}{*}{Abs Rel$\downarrow$} &
+\multirow{2}{*}{Sq Rel$\downarrow$} &
+\multirow{2}{*}{RMSE$\downarrow$}&
+\multirow{2}{*}{Abs Rel$\downarrow$} &
+\multirow{2}{*}{Sq Rel$\downarrow$} &
+\multirow{2}{*}{RMSE$\downarrow$}&
+\multirow{2}{*}{Easy$\uparrow$} & 
+\multirow{2}{*}{Med$\uparrow$}& 
+\multirow{2}{*}{Hard$\uparrow$} &
+\multirow{2}{*}{Easy$\uparrow$} & 
+\multirow{2}{*}{Med$\uparrow$} & 
+\multirow{2}{*}{Hard$\uparrow$} \vspace{0.0mm}\\
+& & & & & & & & & & & & & & & \\
+\midrule
+& 
+&
+&
+\multicolumn{12}{c}{Depth metrics computed on all Velodyne points.} \\
+\midrule
+&
+& 
+PackNet~\cite{guizilini20203d}  & 
+Ours PL &
+0.116 &	
+0.844 & 
+5.139 &	
+0.112 & 
+0.761 &
+4.756 &
+25.42 &	
+17.97 &	
+15.22 &  
+18.50 & 
+12.68 & 
+10.78 \\
+
+
+\checkmark &
+& 
+PackNet~\cite{guizilini20203d}  & 
+Ours PL &
+0.083 &
+0.590 & 
+3.839 &
+0.079 &
+0.489 &
+3.577 &
+41.59 &
+27.75 &
+23.69 &
+30.91 &
+20.53 &
+17.25 \\
+
+\midrule
+
+&
+&
+BTS~\cite{lee2019big} & 
+Ours PL &
+0.100 &
+0.635 &
+4.479 & 
+0.095 &
+0.547 &
+4.087 &
+31.90 &
+22.14 &
+19.24 &
+22.75 &
+15.61 &
+13.34 \\
+
+\checkmark &
+&
+BTS~\cite{lee2019big} & 
+Ours PL &
+XXX &
+XXX &
+XXX & 
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX \\
+
+
+\midrule
+
+&
+&
+ -- & 
+Ours FCOS &
+XXX &
+XXX &
+XXX & 
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX \\
+
+\checkmark &
+&
+ -- & 
+Ours FCOS &
+XXX &
+XXX &
+XXX & 
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX &
+XXX \\
+\midrule
+&
+&
+& 
+\multicolumn{12}{c}{Depth metrics computed on object Velodyne points (see Sec. 15.7).} \\
+\midrule
+
+&
+& 
+PackNet~\cite{guizilini20203d}  & 
+Ours PL &
+0.165 & 
+1.257 & 
+4.564 &	
+0.176 &	
+1.363 &	
+4.883 &
+25.42 &	
+17.97 &	
+15.22 &  
+18.50 & 
+12.68 & 
+10.78 \\
+
+% &
+% \checkmark & 
+% PackNet~\cite{guizilini20203d}  & 
+% Ours PL &
+% 0.159 &	
+% 1.191 &	
+% 4.433 &	
+% 0.172 &	
+% 1.317 &	
+% 4.818 &
+% 26.51 & 
+% 18.64 &
+% 16.00 &
+% 18.97 &
+% 13.09 &	
+% 11.60 \\
+
+\checkmark &
+& 
+PackNet~\cite{guizilini20203d}  & 
+Ours PL &
+0.115 &	
+1.222 &	
+3.658 &
+0.111 &	
+0.901 &
+3.435 &
+41.59 &
+27.75 &
+23.69 &
+30.91 &
+20.53 &
+17.25 \\
+
+\checkmark &
+\checkmark & 
+PackNet~\cite{guizilini20203d}  & 
+Ours PL &
+0.113 &	
+0.801 &
+3.337 &
+0.112 &	
+0.697 &	
+3.301 &
+43.46 & 
+29.96 &
+25.07 &
+34.01 &
+22.31 &
+18.58 \\
+
+
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{
+\textbf{3D detection performance on the KITTI3D dataset with different depth inputs and different 3D detector architectures.}}
+\label{table:ablation_depth_detection}
+}
+\end{table*}

@@ -1,0 +1,214 @@
+
+\begin{table}[t!]
+\centering
+{
+\footnotesize
+\setlength{\tabcolsep}{0.4em}
+\rowcolors{2}{lightgray}{white}
+\begin{tabular}{l|ccc|ccc}
+\toprule
+& \multicolumn{3}{c}{BEV AP} & \multicolumn{3}{c}{3D AP} \\ 
+\multirow{-2}{*}{Depth net}& 
+Easy & 
+Med &
+Hard &
+Easy & Med & Hard \vspace{0.5mm}\\
+\midrule
+ROI-10D~\cite{manhardt2019roi} & 
+9.78 & 
+4.91 &
+3.74 &
+4.32 &
+2.02 &
+1.46
+\\
+GS3D~\cite{li2019gs3d} & 
+8.41 & 
+6.08 &
+4.94 &
+4.47 &
+2.90 &
+2.47
+\\
+MonoGRNet~\cite{qin2019monogrnet} & 
+18.19 & 
+11.17 &
+8.73 &
+9.61 &
+5.74 &
+4.25
+\\
+MonoPSR~\cite{ku2019monocular} & 
+18.33 & 
+12.58 &
+9.91 &
+10.76 &
+7.25 &
+5.85
+\\
+
+SS3D~\cite{jorgensen2019monocular} & 
+16.33 & 
+11.52 &
+9.93 &
+10.78 &
+7.68 &
+6.51
+\\
+
+MonoDIS (single)~\cite{simonelli2019disentangling} & 
+17.23 & 
+13.19 &
+11.12 &
+10.37 &
+7.94 &
+6.40
+\\
+
+M3D-RPN~\cite{brazil2019m3d} & 
+21.02 & 
+13.67 &
+10.23 &
+14.76 &
+9.71 &
+7.42
+\\
+
+SMOKE~\cite{liu2020smoke} & 
+20.83 & 
+14.49 &
+12.75 &
+14.03 &
+9.76 &
+7.84
+\\
+
+MonoPair~\cite{chen2020monopair} & 
+19.28 & 
+14.83 &
+12.89 &
+13.04 &
+9.99 &
+8.65
+\\
+
+
+
+Kinematic3D~\cite{brazil2020kinematic} & 
+26.99 & 
+17.52 &
+13.10 &
+19.07 &
+12.72 &
+9.17
+\\
+
+MonoDIS (multi)~\cite{simonelli2020disentangling} & 
+24.45 & 
+19.25 &
+16.87 &
+16.54 &
+12.97 &
+11.04
+\\
+
+
+
+
+Ours FCOS-3D & 
+%\textbf{29.03} & 
+%\textbf{19.63} &
+%\textbf{16.78} &
+%\textbf{20.09} &
+%\textbf{13.04} &
+%\textbf{11.02}
+\textbf{29.41} & 
+\textbf{19.59} &
+\textbf{16.95} &
+\textbf{20.90} &
+\textbf{13.48} &
+\textbf{11.27}
+\\
+
+
+
+
+\midrule
+
+
+MonoPL$\dagger$~\cite{weng2019monocular} & 
+0.0 & 
+0.0 &
+0.0 &
+10.76 &
+7.50 &
+6.10
+\\
+
+
+AM3D$\dagger$~\cite{ma2019accurate} & 
+25.03 & 
+17.32 &
+14.91 &
+16.50 &
+10.74 &
+9.52
+\\
+
+
+PatchNet$\dagger$ ~\cite{ma2020rethinking} & 
+22.97 & 
+16.86 &
+14.97 &
+15.68 &
+11.12 &
+10.17
+\\
+
+
+\textit{RefinedMPL$\dagger$ ~\cite{vianney2019refinedmpl}} & 
+\textit{28.08} & 
+\textit{17.60} &
+\textit{13.95} &
+\textit{18.09} &
+\textit{11.14} &
+\textit{8.96}
+\\
+
+
+D4LCN$\dagger$~\cite{ding2020learning} & 
+22.51 & 
+16.02 &
+12.55 &
+16.65 &
+11.72 &
+9.51
+\\
+
+\textit{Demystifying$\dagger$~\cite{simonelli2020demystifying}} & 
+\textit{-} & 
+\textit{-} &
+\textit{-} &
+\textit{23.66} &
+\textit{13.25} &
+\textit{11.23}
+\\
+
+
+Ours PL & 
+\textbf{28.87} & 
+\textbf{18.57} &
+\textbf{15.74} &
+\textbf{20.78} &
+\textbf{13.05} &
+\textbf{10.66}
+\\
+
+
+\bottomrule
+\end{tabular}\\\vspace{0mm}
+\caption{
+\textbf{3D detection performance on the KITTI3D test set} for the Car category using the AP$|_{R_{40}}$ metric. $\dagger$ denotes pseudo-lidar based methods.}
+\label{table:kitti_3d_test}
+}
+\end{table}

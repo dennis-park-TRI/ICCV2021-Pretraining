@@ -1,0 +1,103 @@
+\documentclass[10pt,twocolumn,letterpaper]{article}
+
+\usepackage{iccv}
+\usepackage{times}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{mathtools}
+\usepackage{dblfloatfix}
+
+\usepackage{comment}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{booktabs}
+
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[table]{xcolor}    % loads also »colortbl«
+
+\definecolor{fullred}{rgb}{0.85,.0,.1} \newcommand{\fr}{\color{fullred}}
+\definecolor{navyblue}{rgb}{.0,.0,.5}
+\definecolor{bleudefrance}{rgb}{0.19, 0.55, 0.91}
+\definecolor{bluegray}{rgb}{0.18, 0.36, 0.6}
+\definecolor{lightgray}{rgb}{0.95, 0.95, 0.95}
+\definecolor{white}{rgb}{1.0, 1.0, 1.0}
+
+\newcommand\todo[2]{\textcolor{red}{[#1] #2}}
+\newcommand\jie[1]{\textcolor{red}{Jie:#1}}
+
+\DeclareMathOperator*{\argmin}{argmin} % no space, limits underneath in
+
+\usepackage[pagebackref=true,breaklinks=true,letterpaper=true,colorlinks,bookmarks=false]{hyperref}
+
+% \iccvfinalcopy % *** Uncomment this line for the final submission
+
+\def\iccvPaperID{11354} % *** Enter the ICCV Paper ID here
+\def\httilde{\mbox{\tt\raisebox{-.5ex}{\symbol{126}}}}
+
+% Pages are numbered in submission mode, and unnumbered in camera-ready
+\ificcvfinal\pagestyle{empty}\fi
+
+\begin{document}
+
+%%%%%%%%% TITLE
+% \title{Pretraining depth representation for monocular 3D detection}
+%\title{Exploring the limitations of monocular depth for 3D detection}
+\title{Monocular Depth Pre-training for End-to-End 3D detection}
+
+\author{First Author\\
+Institution1\\
+Institution1 address\\
+{\tt\small firstauthor@i1.org}
+% For a paper whose authors are all at the same institution,
+% omit the following lines up until the closing ``}''.
+% Additional authors and addresses can be added with ``\and'',
+% just like the second author.
+% To save space, use either the email address or home page, not both
+\and
+Second Author\\
+Institution2\\
+First line of institution2 address\\
+{\tt\small secondauthor@i2.org}
+}
+
+\maketitle
+% Remove page # from the first page of camera-ready.
+\ificcvfinal\thispagestyle{empty}\fi
+
+%%%%%%%%% ABSTRACT
+\begin{abstract}
+\input{sections/abstract}
+\end{abstract}
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Related work}
+\input{sections/rel_work}
+
+\section{Method}
+\label{sec:method}
+\input{sections/method}
+
+\section{Experimental settings}
+\label{sec:experiments}
+\input{sections/experiments}
+
+\section{Analysis and results}
+\label{sec:results}
+\input{sections/results}
+
+\section{Conclusion}
+\input{sections/conclusion}
+
+{\small
+\bibliographystyle{ieee_fullname}
+\bibliography{egbib}
+}
+
+\end{document}

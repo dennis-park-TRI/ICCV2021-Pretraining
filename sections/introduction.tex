@@ -1,0 +1,37 @@
+
+
+Detecting and accurately localizing objects in 3D space is crucial for autonomous mobile operation. Traditional methods use range sensor measurements (e.g. from LiDAR) as proxies for the underlying scene geometry and relate them to object shape, position, and class~\cite{qi2018frustum}. Recently, CNN-based methods have shown that RGB images without associated depth measurements can be used to directly regress object properties in 3D space~\cite{kehl2017ssd,simonelli2019disentangling}. Monocular 3D detection has attracted a great deal of attention in the community, owing to its potentially wide ranging impact: cameras are ubiquitous, cheap, and provide dense signal. However, regressing depth from single images is inherently an ill-posed problem, as scene depth can only be recovered up to a scale factor. Accordingly, 3D detection performance from RGB images is significantly less accurate than when depth measurements are available from an external sensor. \todo{DP}{mention depth-as-major-culprit}
+
+% As an upper bound, we compute depth and 3D detection metrics from stereo images.
+
+In this work, we aim to establish a correlation between depth estimation and 3D object detection from monocular images. We leverage \textit{Pseudo-Lidar (PL)} style 3D detectors, where depth regression is an intermediate task, and we achieve clear improvements in 3D detection that correlate with depth quality. To further test our hypothesis, we propose a novel fully convolutional single stage 3D detection architecture (FCOS-3D) that jointly outputs dense depth and 3D object boxes. Our results show that depth pretraining significantly surpasses COCO~\cite{lin2014microsoft} pretraining for 3D object detection. Additionally, we perform an analysis of standard depth estimation metrics employed by the community and reveal an underlying bias: depth performance on objects is significantly worse than what is reported by metrics averaged over whole scenes. We propose computing depth \textit{metrics per object}, and show a stronger \textit{correlation between depth and 3D detection performance}. We also show that by attending to relevant regions in the scene (i.e. containing objects of interest) we further improve depth estimation performance, leading to better monocular 3D detection.
+
+% In this work, we aim to establish a correlation between depth estimation and 3D object detection from monocular images. We perform experiments with two leading approaches for monocular 3D detection: (i) \textit{Pseudo-Lidar (PL)} style methods, where depth regression is an intermediate task; and (ii) dense 3D prediction methods that output depth and 3D object boxes jointly. In both cases, we show that by \textit{pretraining the depth} component, we achieve clear improvements in 3D detection that correlate with depth quality. Our analysis of standard depth estimation metrics employed by the community reveals an underlying bias: depth performance on objects is significantly worse than what is reported by metrics averaged over whole scenes. We propose computing depth\textit{ metrics per object}, and show a stronger \textit{correlation between depth and 3D detection performance}. We also show that by attending to relevant regions in the scene (i.e. containing objects of interest) we further improve depth estimation performance, leading to better monocular 3D detection. 
+
+Our main contribution is the following:
+\begin{itemize}
+    \item We propose two methods that link the leading approaches in monocular depth estimation with effective 3D detection. 
+    \item First, we propose to use a large set of unlabeled image-pointcloud pairs to \emph{pre-train} depth estimation models. The pre-trained models are used both in PL-based models, by providing more accurate depth as inputs, and in single-stage detector, by serving as better initialization of the model. 
+    \item Second, we propose to use \emph{attention-based} depth estimation that focus on foreground region, while finetuning the model. For PL-based method, the pretrained depth network is further finetuned on target domain; for single-stage method depth estimation is used as an auxiliary task during training.
+    \item We introduce a simple extension of existing single-stage 2D detector architecture for 3D detector and dense depth prediction, \emph{FCOS-3D}. The architecture is designed to maximize the parameter sharing between 3D detector and depth predictor, so that the depth representation learned during pre-training effectively transfer to 3D detection task.  
+    \item We propose a novel metric for depth estimation, \todo{DP}{name-of-metrics}, that correlates better with the accuracy in 3D detection. The metric focus more on the pixels with larger depth, where typical monocular 3D detectors struggle. 
+    \item We demonstrate proposed approaches on three standard 3D detection benchmarks; KITTI 3D, CityScapes 3D, and nuScenes. We report the state-of-the-art performance on all three benchmarks, with large gaps from others on the rare categories in long-tail distribution.  
+    
+\end{itemize}
+ 
+%Our main contribution is showing a clear trend between depth quality and 3D detection performance from monocular images; we propose a modification to current depth estimation metrics that better correlates the two tasks. Our second contribution is a novel loss formulation that improves depth estimation on objects, leading to superior 3D detection performance. Our third contribution is a novel, dense one-stage network architecture (\textit{FCOS-3D}), combining depth and 3D detection in a multi-scale formulation.
+
+
+% \begin{itemize}
+% \item The key of robust monocular 3D detection is accurate depth prediction.
+% \item Existing approaches follow the standard pretraining strategies, such as ImageNet pretraining.
+% \item We show monocular 3D detection is significantly improved by leveraging depth estimation network pretrained on large-scale images paired with Lidar data.
+% \end{itemize}
+
+% Our contributions are:
+% \begin{itemize}
+%     \item Novel architecture: we introduce FCOS-3D, a one-stage 3D detector, that surpasses all other existing one-stage 3D detectors in accuracy (e.g. CenterNet, SMOKE), and perform on part with SOTA the two-stage detector (MonoDis).
+%     \item Versatility: we show that the pretrained depth benefits two monocular 3D detection approaches that are very different in design: FCOS-3D and PatchNet.
+%     \item Pretraining methodology: we investigate what are important factors in depth pretraining for good transfer to 3D detection. I.e., how much of pretrain data needed? Is it useful to focus on a certain range of depth? What are specifically important in fine-tuning for PatchNet or FCOS-3D?
+%     \item We contribute state-of-the-art monocular 3D detector on KITTI3D, Nuscenes, and Cityscapes 3D. In particular, our methods significantly outperform other baselines in challenging object categories, such as pedestrians and bicycles.
+% \end{itemize}
