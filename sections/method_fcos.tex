@@ -1,5 +1,5 @@
 \subsection{FCOS-3D}
-FCOS-3D is a single-stage network that extends FCOS~\cite{tian2019fcos} to perform 3D detection and dense depth prediction. It is composed of backbone network and three \emph{subnetworks}. As in \cite{tian2019fcos}, we adopt feature pyramid network(FPN)~\cite{} 
+FCOS-3D is a single-stage network that extends FCOS~\cite{tian2019fcos} to perform 3D detection and dense depth prediction. It is composed of backbone network and three \emph{subnetworks}. As in \cite{tian2019fcos}, we adopt feature pyramid network(FPN)~\cite{lin2016fpn} as backbone.
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=1.0\columnwidth]{figures/fcos3d_arch.png}
@@ -19,7 +19,7 @@ FCOS-3D is a single-stage network that extends FCOS~\cite{tian2019fcos} to perfo
 Dataset: IODA dataset consist of 3.4M pairs or image and Lidar pointcloud. The dataset covers diverse urban environment across US and Japan. The pointcloud is captured by high-resolution Luminar device.
 \begin{itemize}
     \item We extend FCOS-3D to perform dense prediction task by aggregating the output of conv2D layer of 3D box head. That is, we upsample all low-resolution features, and add them to produce a dense (stride=4) feature map, and compute depth estimation.
-    \item Loss function: we investigate various loss functions, and conclude L1-loss works best. 
+    \item Loss function: we investigate various loss functions, and conclude L1-loss works best.
     \item Range-aware pretraining. The most challenging instances in monocular 3D detection are in 20-40m range. Therefore, we investigate whether focusing on this range of depth in pretraining helps.
     \item Scale law: We investigate how much of image-pointcloud pairs are needed for a good transfer.
 \end{itemize}
