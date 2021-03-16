@@ -5,7 +5,7 @@ PL methods consist of two stages: first, leveraging dense depth estimators, a po
 \subsubsection{Monocular depth estimation}
 \label{subsubsec:monodepth}
 
-The aim of monocular depth estimation is the recovery of a function $f_D: I \to D$ that predicts for each pixel $p \in I$ the estimated depth $\hat{D} = f_D\left( I\left(p\right)\right)$. Given ground truth depth measurement $D$ (typically acquired by an external sensor, e.g. a LiDAR or RGB-D camera), we define a loss aimed at minimizing the error between the predicted and the actually depth. Formally, our depth estimation model $f_D$ and parameterized by $\theta_D$ is defined as $\hat{\theta}_D = \argmin_{\theta_D}\mathcal{L}_{D}\left(D,\hat{D}\right)$. In all our experiments we 
+The aim of monocular depth estimation is the recovery of a function $f_D: I \to D$ that predicts for each pixel $p \in I$ the estimated depth $\hat{D} = f_D\left( I\left(p\right)\right)$. Given ground truth depth measurement $D$ (typically acquired by an external sensor, e.g. a LiDAR or RGB-D camera), we define a loss aimed at minimizing the error between the predicted and the actually depth. Formally, our depth estimation model $f_D$ and parameterized by $\theta_D$ is defined as $\hat{\theta}_D = \argmin_{\theta_D}\mathcal{L}_{D}\left(D,\hat{D}\right)$. In all our experiments we use the  PackNet~\cite{guizilini20203d} state-of-the-art network architecture which uses packing and unpacking blocks with 3D convolutions, allowing it to recover fine structures with high precision; moreover, PackNet has been shown to generalize better across data
 
 % \begin{equation} \label{eq:supervised_depth}
 % 
